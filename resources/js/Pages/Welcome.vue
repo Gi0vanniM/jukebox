@@ -38,22 +38,35 @@
             <h1 class="display-4">Jukebox</h1>
             <p class="lead">This is a Single Page Application.</p>
             <hr class="my-4" />
-            <p>
+            <p v-if="!$page.props.user">
               Start by registering an account or logging in if you already
               joined.
             </p>
-            <!-- <a class="btn btn-primary btn-lg" href="#" role="button"
-              >Learn more
-            </a> -->
 
             <div class="row">
-              <inertia-link :href="route('login')" class="col mx-2 btn btn-primary">
-                Log in
+              <inertia-link
+                v-if="$page.props.user"
+                href="/dashboard"
+                class="col mx-2 btn btn-dark"
+              >
+                Go to dashboard
               </inertia-link>
 
-              <inertia-link :href="route('register')" class="col mx-2 btn btn-primary">
-                Register
-              </inertia-link>
+              <template v-else>
+                <inertia-link
+                  :href="route('login')"
+                  class="col mx-2 btn border-dark"
+                >
+                  Log in
+                </inertia-link>
+
+                <inertia-link
+                  :href="route('register')"
+                  class="col mx-2 btn btn-dark"
+                >
+                  Register
+                </inertia-link>
+              </template>
             </div>
           </div>
 
