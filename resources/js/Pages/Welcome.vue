@@ -35,12 +35,17 @@
         <div class="col-md-12 col-lg-9">
           <!-- jumbotron -->
           <div class="card shadow-sm jumbotron">
-            <h1 class="display-4">Jukebox</h1>
+            <h1 class="display-4">
+              Jukebox
+              <span class="ml-auto float-right">
+                <application-logo class="" style="width: 100px" />
+              </span>
+            </h1>
             <p class="lead">This is a Single Page Application.</p>
             <hr class="my-4" />
             <p v-if="!$page.props.user">
-              Start by registering an account or logging in if you already
-              joined.
+              Start by registering an account or logging in if you already have
+              an account.
             </p>
 
             <div class="row">
@@ -85,7 +90,11 @@
 </style>
 
 <script>
+import ApplicationLogo from "@/Components/ApplicationLogo";
 export default {
+  components: {
+    ApplicationLogo,
+  },
   props: {
     canLogin: Boolean,
     canRegister: Boolean,

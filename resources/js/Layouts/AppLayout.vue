@@ -6,7 +6,7 @@
       <div class="container">
         <!-- Logo -->
         <inertia-link class="navbar-brand mr-4" :href="route('dashboard')">
-          <jet-application-mark width="36" />
+          <application-mark width="36" />
         </inertia-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -131,7 +131,7 @@
 <script>
 import JetApplicationLogo from '@/Jetstream/ApplicationLogo'
 import JetBanner from '@/Jetstream/Banner'
-import JetApplicationMark from '@/Jetstream/ApplicationMark'
+import ApplicationMark from '@/Components/ApplicationMark'
 import JetDropdown from '@/Jetstream/Dropdown'
 import JetDropdownLink from '@/Jetstream/DropdownLink'
 import JetNavLink from '@/Jetstream/NavLink'
@@ -140,7 +140,7 @@ export default {
   components: {
     JetApplicationLogo,
     JetBanner,
-    JetApplicationMark,
+    ApplicationMark,
     JetDropdown,
     JetDropdownLink,
     JetNavLink,
