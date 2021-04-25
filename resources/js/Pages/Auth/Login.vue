@@ -35,10 +35,12 @@
 
         <div class="mb-0">
           <div class="d-flex justify-content-end align-items-baseline">
-            <inertia-link v-if="canResetPassword" :href="route('password.request')" class="text-muted mr-3">
-              Forgot your password?
+              <inertia-link v-if="canResetPassword" :href="route('password.request')" class="text-muted mr-3">
+                Forgot your password?
+              </inertia-link>
+            <inertia-link :href="route('register')" class="text-muted">
+              No account yet?
             </inertia-link>
-
             <jet-button class="ml-4" :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
               Log in
             </jet-button>
