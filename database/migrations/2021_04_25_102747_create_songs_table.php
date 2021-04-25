@@ -16,6 +16,7 @@ class CreateSongsTable extends Migration
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('song_src');
             $table->integer('duration');
             $table->foreignId('genre_id')->nullable()->constrained(); // will link to the genres id column
             $table->timestamps();
