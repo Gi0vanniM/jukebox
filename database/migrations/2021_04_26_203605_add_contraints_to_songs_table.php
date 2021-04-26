@@ -15,10 +15,7 @@ class AddContraintsToSongsTable extends Migration
     {
         Schema::table('songs', function (Blueprint $table) {
             $table->foreignId('genre_id')->nullable()->change()->constrained();
-            // $table->foreignId('genre_id')->constrained();
-
             $table->foreignId('artist_id')->nullable()->change()->constrained();
-            // $table->foreignId('artist_id')->constrained();
         });
     }
 
