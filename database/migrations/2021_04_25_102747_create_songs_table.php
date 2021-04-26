@@ -18,7 +18,8 @@ class CreateSongsTable extends Migration
             $table->string('name');
             $table->text('song_src');
             $table->integer('duration');
-            $table->foreignId('genre_id')->nullable()->constrained(); // will link to the genres id column
+            $table->foreignId('genre_id')->nullable();
+            $table->foreignId('artist_id')->nullable();
             $table->timestamps();
         });
     }
