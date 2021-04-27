@@ -18,6 +18,7 @@ class CreatePlaylistsTable extends Migration
             $table->foreignId('user_id')->constrained(); // will link to user id column
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

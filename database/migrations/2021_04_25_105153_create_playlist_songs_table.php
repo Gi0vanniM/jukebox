@@ -17,6 +17,7 @@ class CreatePlaylistSongsTable extends Migration
             $table->foreignId('playlist_id')->constrained();
             $table->foreignId('song_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

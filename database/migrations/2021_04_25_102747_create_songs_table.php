@@ -21,6 +21,7 @@ class CreateSongsTable extends Migration
             $table->foreignId('genre_id')->nullable();
             $table->foreignId('artist_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
