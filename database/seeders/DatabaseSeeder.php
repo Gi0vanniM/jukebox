@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Artist;
+use App\Models\Playlist;
+use App\Models\PlaylistSong;
+use App\Models\Song;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +18,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            UserSeeder::class,
+            GenreSeeder::class,
+        ]);
+
+        User::factory(10)->create();
+
+        Artist::factory(10)->create();
+
+        // artists and genres must be generated before songs
+        Song::factory(10)->create();
+
+        // users must be generated before playlists
+        Playlist::factory(10)->create();
+
+        // playlists must be generated before playlist_songs
+        PlaylistSong::factory(40)->create();
     }
 }
