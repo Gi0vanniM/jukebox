@@ -22,7 +22,11 @@ class SongFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->realText(15, 3),
+            'song_src' => '/public/songs/song.pm3',
+            'duration' => '300',
+            'genre_id' => rand(1, 6),
+            'artist_id' => rand(1, 10),
         ];
     }
 }
