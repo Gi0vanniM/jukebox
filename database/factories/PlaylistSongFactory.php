@@ -22,7 +22,8 @@ class PlaylistSongFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'playlist_id' => rand(1, 10),
+            'song_id' => rand(1, 10),
         ];
     }
 }
