@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class GenreController extends Controller
 {
@@ -14,7 +15,9 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('genres', [
+            'genres' => Genre::all(),
+        ]);
     }
 
     /**
