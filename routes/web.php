@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\SongController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::middleware(['auth:sanctum', 'verified']);
     
     Route::get('/genres', [GenreController::class, 'index'])->name('genre.index');
+
+    Route::get('/songs', [SongController::class, 'index'])->name('song.index');
 
     // other routes
 });
