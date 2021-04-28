@@ -25,8 +25,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+// all other routes other than '/' need to go through auth
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
-Route::get('/genres', [GenreController::class, 'index'])->name('genre.index');
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::middleware(['auth:sanctum', 'verified']);
+    
+    Route::get('/genres', [GenreController::class, 'index'])->name('genre.index');
+
+    // other routes
+});
