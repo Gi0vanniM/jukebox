@@ -15,7 +15,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return Inertia::render('genres', [
+        return Inertia::render('Genre/Index', [
             'genres' => Genre::all(),
         ]);
     }
