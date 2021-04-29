@@ -12,4 +12,9 @@ class Genre extends Model
     use SoftDeletes;
 
     protected $table = 'genres';
+
+    public function songs()
+    {
+        return $this->hasMany(Song::class);
+    }
 }
