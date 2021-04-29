@@ -18,10 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            UserSeeder::class,
-            GenreSeeder::class,
-        ]);
+        $this->call(UserSeeder::class);
+        $this->call(GenreSeeder::class);
 
         User::factory(10)->create();
 
@@ -34,6 +32,6 @@ class DatabaseSeeder extends Seeder
         Playlist::factory(10)->create();
 
         // playlists must be generated before playlist_songs
-        PlaylistSong::factory(40)->create();
+        // TODO: make playlist_song seeder
     }
 }
