@@ -12,4 +12,9 @@ class Artist extends Model
     use SoftDeletes;
 
     protected $table = 'artists';
+
+    public function songs()
+    {
+        return $this->hasMany(Song::class);
+    }
 }
