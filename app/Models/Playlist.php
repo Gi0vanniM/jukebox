@@ -12,4 +12,17 @@ class Playlist extends Model
     use SoftDeletes;
 
     protected $table = 'playlists';
+
+    protected $with = ['user', 'songs'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function songs()
+    {
+        return $this->belongsToMany(Song::class);
+    }
+
 }
