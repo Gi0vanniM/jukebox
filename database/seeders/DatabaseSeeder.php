@@ -21,17 +21,15 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(GenreSeeder::class);
 
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
 
-        Artist::factory(10)->create();
+        $artists = Artist::factory(10)->create();
 
         // artists and genres must be generated before songs
-        Song::factory(10)->create();
+        $songs = Song::factory(10)->create();
 
-        // users must be generated before playlists
-        Playlist::factory(10)->create();
-
-        // playlists must be generated before playlist_songs
-        // TODO: make playlist_song seeder
+        // users must be generated before playlists. 
+        // playlist_song entries are created with the hasAttached method.
+        $playlists = Playlist::factory(10)->hasAttached($songs)->create();
     }
 }
