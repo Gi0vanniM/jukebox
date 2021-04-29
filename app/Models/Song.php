@@ -12,4 +12,16 @@ class Song extends Model
     use SoftDeletes;
 
     protected $table = 'songs';
+
+    protected $with = ['genre', 'artist'];
+
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
+    }
+
+    public function artist()
+    {
+        return $this->belongsTo(Artist::class);
+    }
 }
