@@ -11,5 +11,5 @@ class PlaylistSong extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'playlist_songs';
+    protected $table = 'playlist_song';
 }
