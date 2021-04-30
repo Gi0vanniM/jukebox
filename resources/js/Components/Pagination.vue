@@ -10,9 +10,8 @@
                     >
                         <div class="page-link" v-html="link.label" />
                     </li>
-                    <li v-else :key="key + ''" class="page-item">
+                    <li v-else :key="key + ''" class="page-item" :class="{ 'disabled': link.active }">
                         <inertia-link
-                            :class="{ 'bg-white': link.active }"
                             class="page-link"
                             :href="link.url"
                             v-html="link.label"
