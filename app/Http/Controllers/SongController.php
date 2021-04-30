@@ -13,10 +13,18 @@ class SongController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($page = 1)
     {
+        $songs = Song::paginate(15)->through(function ($song) {
+            return [
+                'id' => $song->id,
+                'name' => $song->name,
+                'artist' => $song->artist,
+                'genre' => $song->genre,
+            ];
+        });
         return Inertia::render('Song/Index', [
-            'songs' => Song::all(),
+            'songs' => $songs,
         ]);
     }
 
