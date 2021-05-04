@@ -47,7 +47,7 @@
                             :href="route('genre.index')"
                             :active="route().current('genre.index')"
                         >
-                            Genre
+                            Genres
                         </jet-nav-link>
                     </ul>
 
