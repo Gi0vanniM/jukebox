@@ -15,14 +15,16 @@ class SongController extends Controller
      */
     public function index($page = 1)
     {
-        $songs = Song::paginate(15)->through(function ($song) {
-            return [
-                'id' => $song->id,
-                'name' => $song->name,
-                'artist' => $song->artist,
-                'genre' => $song->genre,
-            ];
-        });
+        // $songs = Song::paginate(15)->through(function ($song) {
+        //     return [
+        //         'id' => $song->id,
+        //         'name' => $song->name,
+        //         'artist' => $song->artist,
+        //         'genre' => $song->genre,
+        //         'duration' => $song->duration,
+        //     ];
+        // });
+        $songs = Song::paginate(15);
         return Inertia::render('Song/Index', [
             'songs' => $songs,
         ]);
