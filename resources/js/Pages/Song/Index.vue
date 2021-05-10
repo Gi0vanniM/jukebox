@@ -17,9 +17,12 @@
         <div class="collapse" id="collapseGenres">
             <div class="card card-body">
                 <ul v-for="genre in genres" :key="genre" class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <inertia-link
+                        :href="route('song.index', genre.name)"
+                        class="list-group-item list-group-item-action"
+                    >
                         {{ genre.name }}
-                    </a>
+                    </inertia-link>
                 </ul>
             </div>
         </div>
