@@ -14,7 +14,7 @@ class SongController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($page = 1)
+    public function index($genre = null)
     {
         // $songs = Song::paginate(15)->through(function ($song) {
         //     return [
@@ -25,7 +25,7 @@ class SongController extends Controller
         //         'duration' => $song->duration,
         //     ];
         // });
-        $songs = Song::paginate(15);
+        $songs = Song::getAllSongs($genre);
         return Inertia::render('Song/Index', [
             'songs' => $songs,
             'genres' => Genre::all(),
