@@ -24,4 +24,24 @@ class Song extends Model
     {
         return $this->belongsTo(Artist::class);
     }
+
+    /**
+     * get all songs with an option to filter by genre
+     *
+     * @param [type] $genre
+     * @param boolean $paginate
+     * @return Song
+     */
+    public static function getAllSongs($genre = null, $paginate = true)
+    {
+        $collection = Song::when($genre, function ($query) use ($genre) {
+            $query->whereHas('genre', function ($query) use ($genre) {
+                $query->where('name', '=', $genre);
+            });
+        });
+
+        $collection = ($paginate) ? $collection->paginate(15) : $collection->get();
+
+        return $collection;
+    }
 }
