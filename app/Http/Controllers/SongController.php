@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use App\Models\Song;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -27,6 +28,7 @@ class SongController extends Controller
         $songs = Song::paginate(15);
         return Inertia::render('Song/Index', [
             'songs' => $songs,
+            'genres' => Genre::all(),
         ]);
     }
 

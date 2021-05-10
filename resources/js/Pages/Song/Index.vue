@@ -4,6 +4,26 @@
             <h1 class="font-weight-bold">Songs</h1>
         </template>
 
+        <button
+            class="btn btn-primary"
+            data-target="#collapseGenres"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseGenres"
+        >
+            Genres
+        </button>
+        <div class="collapse" id="collapseGenres">
+            <div class="card card-body">
+                <ul v-for="genre in genres" :key="genre" class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        {{ genre.name }}
+                    </a>
+                </ul>
+            </div>
+        </div>
+
         <table class="table table-hover border">
             <thead>
                 <tr>
@@ -21,8 +41,7 @@
             </tbody>
         </table>
 
-    <pagination :links="songs.links"/>
-
+        <pagination :links="songs.links" />
     </app-layout>
 </template>
 
@@ -36,12 +55,16 @@ export default {
     },
     props: {
         songs: Array,
+        genres: Array,
     },
     methods: {
         secondsToTime(seconds) {
-            return new Date(seconds * 1000).toISOString().substr(11, 8).replace(/^0(?:0:0?)?/, '');
-        }
-    }
+            return new Date(seconds * 1000)
+                .toISOString()
+                .substr(11, 8)
+                .replace(/^0(?:0:0?)?/, "");
+        },
+    },
 };
 </script>
 
