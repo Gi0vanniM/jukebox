@@ -43,12 +43,12 @@
                         >
                             Songs
                         </jet-nav-link>
-                        <jet-nav-link
+                        <!-- <jet-nav-link
                             :href="route('genre.index')"
                             :active="route().current('genre.index')"
                         >
                             Genres
-                        </jet-nav-link>
+                        </jet-nav-link> -->
                     </ul>
 
                     <!-- Right Side Of Navbar -->
