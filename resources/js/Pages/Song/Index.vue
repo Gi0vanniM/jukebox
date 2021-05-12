@@ -1,7 +1,7 @@
 <template>
     <app-layout>
         <template #header>
-            <h1 class="font-weight-bold">Songs{{ " | " + currentGenre ?? "" }}</h1>
+            <h1 class="font-weight-bold">Songs{{ currentGenre ? " | " + currentGenre ?? "" : "" }}</h1>
         </template>
 
         <button
