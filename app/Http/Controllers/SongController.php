@@ -29,6 +29,7 @@ class SongController extends Controller
         return Inertia::render('Song/Index', [
             'songs' => $songs,
             'genres' => Genre::all(),
+            'currentGenre' => $genre,
         ]);
     }
 

@@ -1,7 +1,7 @@
 <template>
     <app-layout>
         <template #header>
-            <h1 class="font-weight-bold">Songs</h1>
+            <h1 class="font-weight-bold">Songs{{ " | " + currentGenre ?? "" }}</h1>
         </template>
 
         <button
@@ -59,6 +59,7 @@ export default {
     props: {
         songs: Array,
         genres: Array,
+        currentGenre: String,
     },
     methods: {
         secondsToTime(seconds) {
