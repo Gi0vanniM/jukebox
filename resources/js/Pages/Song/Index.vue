@@ -16,8 +16,14 @@
         </button>
         <div class="collapse" id="collapseGenres">
             <div class="card card-body">
-                <ul v-for="genre in genres" :key="genre" class="list-group">
-                    <inertia-link
+                <ul class="list-group">
+                    <inertia-link 
+                        :href="route('song.index')"
+                        class="list-group-item list-group-item-action"
+                    >
+                        - all songs -
+                    </inertia-link>
+                    <inertia-link v-for="genre in genres" :key="genre" 
                         :href="route('song.index', genre.name)"
                         class="list-group-item list-group-item-action"
                     >
