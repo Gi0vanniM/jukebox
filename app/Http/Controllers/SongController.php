@@ -62,7 +62,9 @@ class SongController extends Controller
      */
     public function show(Song $song)
     {
-        //
+        return Inertia::render('Song/Show', [
+            'song' => $song,
+        ]);
     }
 
     /**

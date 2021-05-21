@@ -40,5 +40,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::get('/songs/{genre?}', [SongController::class, 'index'])->name('song.index');
 
+    Route::get('/song/{song}/{songname?}', [SongController::class, 'show'])->name('song.show');
+
     // other routes
 });
