@@ -249,6 +249,10 @@ export default {
         JetNavLink,
     },
 
+    props: {
+        title: String,
+    },
+
     data() {
         return {
             showingNavigationDropdown: false,
@@ -278,5 +282,15 @@ export default {
             return window.location.pathname;
         },
     },
+
+    watch: {
+        title: {
+            immediate: true,
+            handler(title) {
+                if (title) document.title = title
+            },
+        },
+    },
+
 };
 </script>
