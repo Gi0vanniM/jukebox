@@ -2,6 +2,7 @@
     <app-layout v-bind:title="song.name">
 
         <template #header>
+            <back-button/>
             <h1 class="font-weight-bold">
                 {{ song.name }}
             </h1>
@@ -11,10 +12,12 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
+import BackButton from "@/Components/BackButton";
 
 export default {
     components: {
         AppLayout,
+        BackButton,
     },
     props: {
         song: Array,
