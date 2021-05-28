@@ -1,7 +1,9 @@
 <template>
     <app-layout>
         <template #header>
-            <h1 class="font-weight-bold">Songs{{ currentGenre ? " | " + currentGenre ?? "" : "" }}</h1>
+            <h1 class="font-weight-bold">
+                Songs{{ currentGenre ? " | " + currentGenre ?? "" : "" }}
+            </h1>
         </template>
 
         <button
@@ -17,13 +19,15 @@
         <div class="collapse" id="collapseGenres">
             <div class="card card-body">
                 <ul class="list-group">
-                    <inertia-link 
+                    <inertia-link
                         :href="route('song.index')"
                         class="list-group-item list-group-item-action"
                     >
                         - all songs -
                     </inertia-link>
-                    <inertia-link v-for="genre in genres" :key="genre" 
+                    <inertia-link
+                        v-for="genre in genres"
+                        :key="genre"
                         :href="route('song.index', genre.name)"
                         class="list-group-item list-group-item-action"
                     >
@@ -43,7 +47,11 @@
             </thead>
             <tbody>
                 <tr v-for="song in songs.data" :key="song.id">
-                    <td>{{ song.name }}</td>
+                    <td>
+                        <inertia-link :href="route('song.show', [song.id, song.name])">
+                            {{ song.name }}
+                        </inertia-link>
+                    </td>
                     <td>{{ song.artist.name }}</td>
                     <td>{{ secondsToTime(song.duration) }}</td>
                 </tr>
