@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $artists = Artist::factory(10)->create();
 
         // artists and genres must be generated before songs
-        $songs = Song::factory(10)->create();
+        $songs = Song::factory(100)->create();
 
         // users must be generated before playlists. 
         // playlist_song entries are created with the hasAttached method.

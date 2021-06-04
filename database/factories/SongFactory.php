@@ -24,7 +24,7 @@ class SongFactory extends Factory
         return [
             'name' => $this->faker->realText(15, 3),
             'song_src' => '/public/songs/song.pm3',
-            'duration' => '300',
+            'duration' => rand(60, 400),
             'genre_id' => rand(1, 6),
             'artist_id' => rand(1, 10),
         ];
