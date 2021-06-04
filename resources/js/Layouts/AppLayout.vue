@@ -218,7 +218,7 @@
         </nav>
 
         <!-- Page Heading -->
-        <header class="d-flex py-3 bg-white shadow-sm border-bottom">
+        <header class="d-flex bg-white shadow-sm border-bottom" :class="{'py-3' : this.$slots.header}">
             <div class="container">
                 <slot name="header"></slot>
             </div>
