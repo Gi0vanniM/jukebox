@@ -65,7 +65,9 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import Pagination from "@/Components/Pagination";
+import { helperMixin } from "@/Mixins/HelperMixin.js";
 export default {
+    mixins: [helperMixin],
     components: {
         AppLayout,
         Pagination,
@@ -74,14 +76,6 @@ export default {
         songs: Array,
         genres: Array,
         currentGenre: String,
-    },
-    methods: {
-        secondsToTime(seconds) {
-            return new Date(seconds * 1000)
-                .toISOString()
-                .substr(11, 8)
-                .replace(/^0(?:0:0?)?/, "");
-        },
     },
 };
 </script>
