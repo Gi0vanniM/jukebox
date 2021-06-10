@@ -1,21 +1,12 @@
 <template>
-    <div class="row">
-        <div class="col px-1">
-            <button
-                type="button"
-                class="pl-btn btn btn-secondary btn-small m-1 btn-block"
-            >
-                Add to playlist
-            </button>
-        </div>
-        <div class="col px-1">
-            <button
-                type="button"
-                class="pl-btn btn btn-primary btn-small m-1 btn-block"
-            >
-                Add to session
-            </button>
-        </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary btn-small px-1">
+            Add to playlist
+        </button>
+
+        <button type="button" class="btn btn-primary btn-small px-1">
+            Add to session
+        </button>
     </div>
 </template>
 
@@ -24,7 +15,4 @@ export default {};
 </script>
 
 <style>
-.pl-btn {
-    border-radius: 1em;
-}
 </style>
