@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\SongController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,4 +44,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/song/{song}/{songname?}', [SongController::class, 'show'])->name('song.show');
 
     // other routes
+
+    Route::prefix('api')->group(function () {
+        Route::post('addSongToPlaylist', [PlaylistController::class, 'add'])->name('addSongToPlaylist');
+    });
 });
