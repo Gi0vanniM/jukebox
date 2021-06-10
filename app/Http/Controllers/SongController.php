@@ -19,15 +19,6 @@ class SongController extends Controller
      */
     public function index($genre = null)
     {
-        // $songs = Song::paginate(15)->through(function ($song) {
-        //     return [
-        //         'id' => $song->id,
-        //         'name' => $song->name,
-        //         'artist' => $song->artist,
-        //         'genre' => $song->genre,
-        //         'duration' => $song->duration,
-        //     ];
-        // });
         $songs = Song::getAllSongs($genre);
         return Inertia::render('Song/Index', [
             'songs' => $songs,
