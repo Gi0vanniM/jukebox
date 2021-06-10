@@ -17,20 +17,7 @@
                             {{ secondsToTime(song.duration) }}
                         </h2>
                     </div>
-                    <div class="col">
-                        <button
-                            type="button"
-                            class="pl-btn btn btn-secondary m-1 btn-block"
-                        >
-                            <h2 class="m-0">Add to playlist</h2>
-                        </button>
-                        <button
-                            type="button"
-                            class="pl-btn btn btn-primary m-1 btn-block"
-                        >
-                            <h2 class="m-0">Add to session</h2>
-                        </button>
-                    </div>
+                    <playlist-button/>
                 </div>
             </div>
         </div>
@@ -40,12 +27,14 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import BackButton from "@/Components/BackButton";
+import PlaylistButton from "@/Components/PlaylistButtonsBig";
 import { helperMixin } from "@/Mixins/HelperMixin";
 export default {
     mixins: [helperMixin],
     components: {
         AppLayout,
         BackButton,
+        PlaylistButton,
     },
     props: {
         song: Array,
@@ -54,7 +43,4 @@ export default {
 </script>
 
 <style>
-    .pl-btn {
-        border-radius: 1em;
-    }
 </style>
