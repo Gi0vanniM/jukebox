@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
+use App\Models\Playlist;
 use App\Models\Song;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class SongController extends Controller
@@ -30,6 +33,7 @@ class SongController extends Controller
             'songs' => $songs,
             'genres' => Genre::all(),
             'currentGenre' => $genre,
+            'playlists' => Playlist::where('user_id', Auth::id())->get(),
         ]);
     }
 
@@ -64,6 +68,7 @@ class SongController extends Controller
     {
         return Inertia::render('Song/Show', [
             'song' => $song,
+            'playlists' => Playlist::where('user_id', Auth::id())->get(),
         ]);
     }
 
