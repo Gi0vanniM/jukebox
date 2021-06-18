@@ -35,13 +35,17 @@ export default {
         song: Object,
     },
     methods: {
-        addToPlaylist: function (playlist, song) {
+        addToPlaylist: function (playlist, song, force = false) {
             const data = {
                 playlistId: (playlist) ? playlist.id : null,
                 songId: song.id,
+                force: force,
             };
             axios.post("/api/addSongToPlaylist", data).then((response) => {
                 console.log(response.data);
+                if (response.data.songExists == true) {
+                    alert('song already in playlist');
+                }
             });
         },
     },
