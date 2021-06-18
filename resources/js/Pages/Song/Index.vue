@@ -59,7 +59,7 @@
                     </td>
                     <td>{{ song.artist.name }}</td>
                     <td>{{ secondsToTime(song.duration) }}</td>
-                    <td><playlist-button class="float-right" /></td>
+                    <td><playlist-button :song="song" class="float-right" /></td>
                 </tr>
             </tbody>
         </table>
@@ -81,7 +81,7 @@ export default {
         PlaylistButton,
     },
     props: {
-        songs: Array,
+        songs: Object,
         genres: Array,
         currentGenre: String,
     },
