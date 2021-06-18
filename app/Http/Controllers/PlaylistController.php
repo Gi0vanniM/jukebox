@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Lib\PlaylistSaved;
+use App\Lib\PlaylistSession;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
 
@@ -81,5 +83,28 @@ class PlaylistController extends Controller
     public function destroy(Playlist $playlist)
     {
         //
+    }
+
+    public function add(Request $request)
+    {
+        // playlistId
+        // songId
+
+        $playlist = null;
+        $response = null;
+
+        // check if playlist id is present
+        // if not present the song needs to be saved in session
+        if ($request->playlistId) {
+            $playlist = new PlaylistSaved($request->playlistId);
+        } else {
+            $playlist = new PlaylistSession();
+        }
+
+        $response = $playlist->addSong($request->songId, $request->force);
+
+        return response()->json(
+            $response
+        );
     }
 }
