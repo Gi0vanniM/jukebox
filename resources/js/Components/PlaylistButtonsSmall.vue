@@ -13,21 +13,39 @@
             <button
                 v-for="playlist in $page.props.playlists"
                 v-bind:key="playlist.id"
+                v-on:click="addToPlaylist(playlist, song)"
                 type="button"
                 class="btn dropdown-item"
             >
                 {{ playlist.name }}
             </button>
         </div>
-
-        <button type="button" class="btn btn-primary btn-small px-1">
+        <button 
+            v-on:click="addToPlaylist(null, song)"
+            type="button" 
+            class="btn btn-primary btn-small px-1">
             Add to session
         </button>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    props: {
+        song: Object,
+    },
+    methods: {
+        addToPlaylist: function (playlist, song) {
+            const data = {
+                playlistId: (playlist) ? playlist.id : null,
+                songId: song.id,
+            };
+            axios.post("/api/addSongToPlaylist", data).then((response) => {
+                console.log(response.data);
+            });
+        },
+    },
+};
 </script>
 
 <style>
