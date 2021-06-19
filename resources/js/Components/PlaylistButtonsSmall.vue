@@ -10,41 +10,61 @@
             Add to playlist
         </button>
         <div class="dropdown-menu">
-            <button
+            <template
                 v-for="playlist in $page.props.playlists"
                 v-bind:key="playlist.id"
-                v-on:click="addToPlaylist(playlist, song)"
-                type="button"
-                class="btn dropdown-item"
             >
-                {{ playlist.name }}
-            </button>
+                <button
+                    v-on:click="addToPlaylist(playlist.id, song.id)"
+                    type="button"
+                    class="btn dropdown-item"
+                >
+                    {{ playlist.name }}
+                </button>
+                <already-added-alert
+                    :songId="song.id"
+                    :playlistId="playlist.id"
+                    :playlistName="playlist.name"
+                />
+            </template>
         </div>
-        <button 
-            v-on:click="addToPlaylist(null, song)"
-            type="button" 
-            class="btn btn-primary btn-small px-1">
+        <button
+            v-on:click="addToPlaylist(null, song.id)"
+            type="button"
+            class="btn btn-primary btn-small px-1"
+        >
             Add to session
         </button>
+        <already-added-alert
+            :songId="song.id"
+            :playlistId="'session'"
+            :playlistName="null"
+        />
     </div>
 </template>
 
 <script>
+import AlreadyAddedAlert from "@/Components/AlreadyAddedAlert";
 export default {
     props: {
         song: Object,
     },
+    components: {
+        AlreadyAddedAlert,
+    },
     methods: {
-        addToPlaylist: function (playlist, song, force = false) {
+        addToPlaylist: function (playlistId = null, songId, forced = false) {
             const data = {
-                playlistId: (playlist) ? playlist.id : null,
-                songId: song.id,
-                force: force,
+                playlistId: playlistId || null,
+                songId: songId,
+                forced: forced,
             };
             axios.post("/api/addSongToPlaylist", data).then((response) => {
-                console.log(response.data);
+                console.log(response.data); //##
                 if (response.data.songExists == true) {
-                    alert('song already in playlist');
+                    $("#addSongAnyway-" + songId + "-" + playlistId).modal(
+                        "show"
+                    );
                 }
             });
         },
