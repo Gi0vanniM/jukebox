@@ -101,7 +101,7 @@ class PlaylistController extends Controller
             $playlist = new PlaylistSession();
         }
 
-        $response = $playlist->addSong($request->songId, $request->force);
+        $response = $playlist->addSong($request->songId, $request->forced);
 
         return response()->json(
             $response
