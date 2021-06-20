@@ -8,7 +8,7 @@
             :aria-labelledby="'#' + modalId + '.Label'"
             aria-hidden="true"
         >
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
                         <button
@@ -30,8 +30,11 @@
                         <template v-if="playlistName || playlistId == null">
                             This is already in your '{{ playlistName }}' playlist.
                         </template>
+                        <template v-else>
+                            This is already in your session.
+                        </template>
 
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center pt-3">
                             <button
                                 type="button"
                                 class="btn"
@@ -79,5 +82,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.modal-content {
+    border-radius: 1rem;
+}
 </style>
