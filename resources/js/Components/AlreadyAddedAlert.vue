@@ -27,7 +27,7 @@
                             Already added
                         </h4>
 
-                        <template v-if="playlistName || playlistId == null">
+                        <template v-if="playlistName || playlistId !== 'session'">
                             This is already in your '{{ playlistName }}' playlist.
                         </template>
                         <template v-else>
@@ -38,13 +38,7 @@
                             <button
                                 type="button"
                                 class="btn"
-                                v-on:click="
-                                    this.$parent.addToPlaylist(
-                                        playlistId,
-                                        songId,
-                                        true
-                                    )
-                                "
+                                v-on:click="$parent.addToPlaylist(playlistId, songId, true)"
                                 data-dismiss="modal"
                             >
                                 ADD ANYWAY
