@@ -40,17 +40,23 @@
             :playlistId="'session'"
             :playlistName="null"
         />
+    
+        <added-alert v-if="!exists('addedToPlaylist')"/>
     </div>
 </template>
 
 <script>
 import AlreadyAddedAlert from "@/Components/AlreadyAddedAlert";
+import AddedAlert from "@/Components/AddedAlert";
+import { helperMixin } from "@/Mixins/HelperMixin.js";
 export default {
+    mixins: [helperMixin],
     props: {
         song: Object,
     },
     components: {
         AlreadyAddedAlert,
+        AddedAlert,
     },
     methods: {
         addToPlaylist: function (playlistId = null, songId, forced = false) {
@@ -65,6 +71,9 @@ export default {
                     $("#addSongAnyway-" + songId + "-" + playlistId).modal(
                         "show"
                     );
+                }
+                if (response.data.addedSong == true) {
+                    $("#addedToPlaylist").toast("show");
                 }
             });
         },
