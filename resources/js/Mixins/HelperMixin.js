@@ -6,5 +6,11 @@ export const helperMixin = {
                 .substr(11, 8)
                 .replace(/^0(?:0:0?)?/, "");
         },
+        exists: function (elId) {
+            if (document.getElementById(elId)) {
+                return true;
+            }
+            return false;
+        },
     }
 }
