@@ -6,6 +6,7 @@ use App\Lib\PlaylistSaved;
 use App\Lib\PlaylistSession;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PlaylistController extends Controller
 {
@@ -16,7 +17,7 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Playlist/Index');
     }
 
     /**
