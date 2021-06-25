@@ -38,7 +38,7 @@
         </button>
         <already-added-alert
             :songId="song.id"
-            :playlistId="'session'"
+            :playlistId="null"
             :playlistName="null"
         />
 
@@ -83,7 +83,7 @@
         </button>
         <already-added-alert
             :songId="song.id"
-            :playlistId="'session'"
+            :playlistId="null"
             :playlistName="null"
         />
         <added-alert v-if="!exists('addedToPlaylist')" />

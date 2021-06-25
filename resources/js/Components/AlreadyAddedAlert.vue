@@ -27,7 +27,7 @@
                             Already added
                         </h4>
 
-                        <template v-if="playlistName || playlistId !== 'session'">
+                        <template v-if="playlistName">
                             This is already in your '{{ playlistName }}' playlist.
                         </template>
                         <template v-else>
