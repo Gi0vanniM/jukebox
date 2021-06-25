@@ -35,16 +35,27 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     })->name('dashboard');
 
     Route::middleware(['auth:sanctum', 'verified']);
-    
-    Route::get('/genres', [GenreController::class, 'index'])->name('genre.index');
-    Route::get('/genre/{genre}', [GenreController::class, 'show'])->name('genre.show');
 
-    Route::get('/songs/{genre?}', [SongController::class, 'index'])->name('song.index');
+    // /genres routes (not really used anymore)
+    Route::name('genre.')->prefix('genres')->group(function () {
+        Route::get('', [GenreController::class, 'index'])->name('index');
+        Route::get('{genre}', [GenreController::class, 'show'])->name('show');
+    });
 
-    Route::get('/song/{song}/{songname?}', [SongController::class, 'show'])->name('song.show');
+    // /songs routes
+    Route::name('song.')->prefix('songs')->group(function () {
+        Route::get('{genre?}', [SongController::class, 'index'])->name('index');
+        Route::get('{song}/{songname?}', [SongController::class, 'show'])->name('show');
+    });
+
+    Route::name('playlist.')->prefix('playlists')->group(function () {
+        Route::get('', [PlaylistController::class, 'index'])->name('index');
+        Route::get('{playlist}/{playlistname?}', [PlaylistController::class, 'show'])->name('show');
+    });
 
     // other routes
-
+    
+    // api routes
     Route::prefix('api')->group(function () {
         Route::post('addSongToPlaylist', [PlaylistController::class, 'add'])->name('addSongToPlaylist');
     });
