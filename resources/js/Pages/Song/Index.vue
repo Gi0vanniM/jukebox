@@ -71,7 +71,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import Pagination from "@/Components/Pagination";
-import PlaylistButton from "@/Components/PlaylistButtonsSmall";
+import PlaylistButton from "@/Components/PlaylistButtons";
 import { helperMixin } from "@/Mixins/HelperMixin.js";
 export default {
     mixins: [helperMixin],

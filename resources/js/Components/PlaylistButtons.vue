@@ -1,5 +1,6 @@
 <template>
-    <div class="btn-group">
+    <!-- small buttons -->
+    <div class="btn-group" v-if="small">
         <button
             type="button"
             class="btn btn-secondary btn-small px-1 dropdown-toggle"
@@ -40,8 +41,52 @@
             :playlistId="'session'"
             :playlistName="null"
         />
-    
-        <added-alert v-if="!exists('addedToPlaylist')"/>
+
+        <added-alert v-if="!exists('addedToPlaylist')" />
+    </div>
+    <!-- big buttons -->
+    <div class="col" v-else>
+        <button
+            type="button"
+            class="pl-btn btn btn-secondary m-1 btn-block dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+        >
+            <h2 class="m-0">Add to playlist</h2>
+        </button>
+        <div class="dropdown-menu">
+            <template
+                v-for="playlist in $page.props.playlists"
+                v-bind:key="playlist.id"
+            >
+                <button
+                    v-on:click="addToPlaylist(playlist.id, song.id)"
+                    type="button"
+                    class="btn dropdown-item"
+                >
+                    {{ playlist.name }}
+                </button>
+                <already-added-alert
+                    :songId="song.id"
+                    :playlistId="playlist.id"
+                    :playlistName="playlist.name"
+                />
+            </template>
+        </div>
+        <button
+            v-on:click="addToPlaylist(null, song.id)"
+            type="button"
+            class="pl-btn btn btn-primary m-1 btn-block"
+        >
+            <h2 class="m-0">Add to session</h2>
+        </button>
+        <already-added-alert
+            :songId="song.id"
+            :playlistId="'session'"
+            :playlistName="null"
+        />
+        <added-alert v-if="!exists('addedToPlaylist')" />
     </div>
 </template>
 
@@ -52,6 +97,10 @@ import { helperMixin } from "@/Mixins/HelperMixin.js";
 export default {
     mixins: [helperMixin],
     props: {
+        small: {
+            default: true,
+            type: Boolean,
+        },
         song: Object,
     },
     components: {
