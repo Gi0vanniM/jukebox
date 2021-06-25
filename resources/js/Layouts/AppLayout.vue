@@ -43,6 +43,12 @@
                         >
                             Songs
                         </jet-nav-link>
+                        <jet-nav-link
+                            :href="route('playlist.index')"
+                            :active="route().current('playlist.index')"
+                        >
+                            Your Playlists
+                        </jet-nav-link>
                         <!-- <jet-nav-link
                             :href="route('genre.index')"
                             :active="route().current('genre.index')"

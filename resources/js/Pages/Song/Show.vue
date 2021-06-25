@@ -17,7 +17,7 @@
                             {{ secondsToTime(song.duration) }}
                         </h2>
                     </div>
-                    <playlist-button/>
+                    <playlist-button :song="song" :small="false"/>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import BackButton from "@/Components/BackButton";
-import PlaylistButton from "@/Components/PlaylistButtonsBig";
+import PlaylistButton from "@/Components/PlaylistButtons";
 import { helperMixin } from "@/Mixins/HelperMixin";
 export default {
     mixins: [helperMixin],
@@ -37,7 +37,7 @@ export default {
         PlaylistButton,
     },
     props: {
-        song: Array,
+        song: Object,
     },
 };
 </script>

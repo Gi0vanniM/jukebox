@@ -33,7 +33,7 @@ class PlaylistSaved implements PlaylistInterface
 
         // insert/save the song in the relation table
         if ($status = $this->playlist->songs()->save($song)) {
-            return ['addedSong' => true];
+            return ['addedSong' => true] + ($forced ? ['forced' => $forced] : []);
         }
 
         return $status;

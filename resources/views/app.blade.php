@@ -23,5 +23,6 @@
     </head>
     <body class="bg-light">
         @inertia
+        <div id="modals"></div>
     </body>
 </html>
