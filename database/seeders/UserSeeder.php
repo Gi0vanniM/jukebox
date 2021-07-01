@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ]
         ]);
-        DB::table('user_roles')->insert([
+        DB::table('role_user')->insert([
             [
                 'user_id' => 1,
                 'role_id' => 4,
