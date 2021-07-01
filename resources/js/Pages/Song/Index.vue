@@ -3,9 +3,9 @@
         v-bind:title="title"
     >
         <template #header>
-            <h1 class="font-weight-bold">
+            <h2 class="h4 font-weight-bold">
                 Songs{{ currentGenre ? " | " + currentGenre ?? "" : "" }}
-            </h1>
+            </h2>
         </template>
 
         <button
