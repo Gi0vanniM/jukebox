@@ -19,7 +19,7 @@
             Genres
         </button>
         <div class="collapse" id="collapseGenres">
-            <div class="card card-body">
+            <div class="card card-body border-0">
                 <ul class="list-group">
                     <inertia-link
                         :href="route('song.index')"
