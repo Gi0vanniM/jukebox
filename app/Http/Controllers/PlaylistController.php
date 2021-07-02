@@ -6,6 +6,7 @@ use App\Lib\PlaylistSaved;
 use App\Lib\PlaylistSession;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PlaylistController extends Controller
@@ -17,7 +18,10 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Playlist/Index');
+
+        return Inertia::render('Playlist/Index', [
+            'playlists' => Playlist::where('user_id', Auth::id())->get(),
+        ]);
     }
 
     /**
@@ -49,7 +53,10 @@ class PlaylistController extends Controller
      */
     public function show(Playlist $playlist)
     {
-        //
+        // dd($playlist);
+        return Inertia::render('Playlist/Show', [
+            'playlist' => $playlist
+        ]);
     }
 
     /**
