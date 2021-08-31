@@ -15,4 +15,34 @@ class AdminController extends Controller
     {
         //
     }
+
+    /**
+     * songs crud
+     *
+     * @return void
+     */
+    public function songs()
+    {
+        //
+    }
+
+    /**
+     * playlists crud
+     *
+     * @return void
+     */
+    public function playlists()
+    {
+        //
+    }
+
+    /**
+     * genres crud
+     *
+     * @return void
+     */
+    public function genres()
+    {
+        //
+    }
 }
