@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Artist;
 use App\Models\Playlist;
 use App\Models\PlaylistSong;
+use App\Models\Role;
 use App\Models\Song;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -18,10 +19,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(GenreSeeder::class);
 
-        $users = User::factory(10)->create();
+        $users = User::factory(10)->hasAttached(Role::find(2))->create();
 
         $artists = Artist::factory(10)->create();
 

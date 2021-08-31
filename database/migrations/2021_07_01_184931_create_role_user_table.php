@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlaylistSongTable extends Migration
+class CreateRoleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePlaylistSongTable extends Migration
      */
     public function up()
     {
-        Schema::create('playlist_song', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('playlist_id')->constrained();
-            $table->foreignId('song_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('role_id')->constrained();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +28,6 @@ class CreatePlaylistSongTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('playlist_song');
+        Schema::dropIfExists('role_user');
     }
 }
