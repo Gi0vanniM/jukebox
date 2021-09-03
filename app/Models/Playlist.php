@@ -22,7 +22,7 @@ class Playlist extends Model
 
     public function songs()
     {
-        return $this->belongsToMany(Song::class)->withTimestamps();
+        return $this->belongsToMany(Song::class)->withTimestamps()->withPivot('id');
     }
 
 }
