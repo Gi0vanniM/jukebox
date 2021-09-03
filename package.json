@@ -31,7 +31,7 @@
         "sass-loader": "^11.0.1",
         "tailwindcss": "^2.0.1",
         "vue": "^3.0.5",
-        "vue-loader": "^16.1.2"
+        "vue-loader": "^16.5.0"
     },
     "dependencies": {
         "vue-sweetalert2": "^5.0.2"
