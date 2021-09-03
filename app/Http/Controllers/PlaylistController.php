@@ -53,7 +53,8 @@ class PlaylistController extends Controller
     public function show(Playlist $playlist)
     {
         return Inertia::render('Playlist/Show', [
-            'playlist' => $playlist
+            'playlist' => $playlist,
+            'playlists' => Playlist::where('user_id', Auth::id())->get(),
         ]);
     }
 
@@ -108,6 +109,29 @@ class PlaylistController extends Controller
         }
 
         $response = $playlist->addSong($request->songId, $request->forced);
+
+        return response()->json(
+            $response
+        );
+    }
+
+    public function remove(Request $request)
+    {
+        // playlistId
+        // songId
+
+        $playlist = null;
+        $response = null;
+
+        // check if playlist id is present
+        // if not present get the session playlist
+        if ($request->playlistId) {
+            $playlist = new PlaylistSaved($request->playlistId);
+        } else {
+            $playlist = new PlaylistSession();
+        }
+
+        $response = $playlist->removeSong($request->songId, $request->relationId);
 
         return response()->json(
             $response
