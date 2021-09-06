@@ -3,7 +3,6 @@
         <template #header>
             <small class="font-weight-bold">PLAYLIST</small>
             <h2 class="h2 font-weight-bold">{{ playlist.name }}</h2>
-            <!-- TODO:: show total amount of time of playlist -->
             <small><b>{{ playlist.user.name }}</b> • {{ playlist.songs.length }} songs, {{totalTime}}</small>
         </template>
 
