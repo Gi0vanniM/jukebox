@@ -39,8 +39,24 @@ class PlaylistSaved implements PlaylistInterface
         return $status;
     }
 
-    public function removeSong($id)
+    /**
+     * remove song method
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function removeSong($id, $relationId)
     {
-        //
+
+        if (!$this->playlist->songs->contains($id)) {
+            return ['songNotInPlaylist' => true];
+        }
+
+        // remove song from playlist
+        if ($status = $this->playlist->songs()->wherePivot('id', $relationId)->detach()) {
+            return ['removedSong' => true];
+        }
+
+        return $status;
     }
 }
