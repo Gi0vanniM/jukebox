@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::name('playlist.')->prefix('playlists')->group(function () {
         Route::get('', [PlaylistController::class, 'index'])->name('index');
+        Route::get('session', [PlaylistController::class, 'session'])->name('session');
         Route::get('{playlist}/{playlistname?}', [PlaylistController::class, 'show'])->name('show');
     });
 
