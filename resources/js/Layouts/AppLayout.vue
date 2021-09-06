@@ -49,6 +49,12 @@
                         >
                             Your Playlists
                         </jet-nav-link>
+                        <jet-nav-link
+                            :href="route('playlist.session')"
+                            :active="route().current('playlist.session')"
+                        >
+                            Session
+                        </jet-nav-link>
                         <!-- <jet-nav-link
                             :href="route('genre.index')"
                             :active="route().current('genre.index')"
