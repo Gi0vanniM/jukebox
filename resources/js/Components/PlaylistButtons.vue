@@ -3,7 +3,7 @@
     <div class="btn-group" v-if="small">
         <button
             type="button"
-            class="btn btn-secondary btn-small px-1 dropdown-toggle"
+            class="btn btn-secondary btn-small px-1"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
@@ -41,6 +41,15 @@
             :playlistId="null"
             :playlistName="null"
         />
+
+        <button
+            v-if="currentPlaylist"
+            v-on:click="removeFromPlaylist(currentPlaylist.id, song.id, song.pivot.id)"
+            type="button"
+            class="btn btn-danger btn-small px-1"
+        >
+            Remove from playlist
+        </button>
 
         <added-alert v-if="!exists('addedToPlaylist')" />
     </div>
@@ -102,6 +111,10 @@ export default {
             type: Boolean,
         },
         song: Object,
+        currentPlaylist: {
+            default: null,
+            type: Object,
+        },
     },
     components: {
         AlreadyAddedAlert,
@@ -110,7 +123,7 @@ export default {
     methods: {
         addToPlaylist: function (playlistId = null, songId, forced = false) {
             const data = {
-                playlistId: playlistId || null,
+                playlistId: playlistId || nulcurrentPlaylistl,
                 songId: songId,
                 forced: forced,
             };
@@ -126,6 +139,27 @@ export default {
                 }
             });
         },
+        removeFromPlaylist: function (playlistId, songId, relationId) {
+            const data = {
+                playlistId: playlistId,
+                songId: songId,
+                relationId: relationId,
+            }
+            axios.post("/api/removeSongFromPlaylist", data).then((response) => {
+                console.log(response.data); //##
+                if (response.data.removedSong == true) {
+                    let el = document.getElementById('playlist_song-' + relationId);
+                    el.remove();
+                    this.$swal('Removed song from playlist');
+                    this.$parent.songs.forEach(song => {
+                        if (song.pivot.id == relationId) {
+                            // TODO:: remove song from parent playlist songs
+                            
+                        }
+                    });
+                }
+            })
+        }
     },
 };
 </script>

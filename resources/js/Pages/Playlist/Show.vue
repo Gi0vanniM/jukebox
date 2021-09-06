@@ -13,10 +13,11 @@
                     <th scope="col">Title</th>
                     <th scope="col">Artist</th>
                     <th scope="col"><i class="far fa-clock"></i></th>
+                    <th scope="col"><i class="far fa-edit float-right"></i></th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="song in playlist.songs" :key="song.id">
+                <tr v-for="song in playlist.songs" :key="song.pivot.id" :id="'playlist_song-' + song.pivot.id">
                     <td>
                         <inertia-link
                             :href="route('song.show', [song.id, song.name])"
@@ -26,6 +27,7 @@
                     </td>
                     <td>{{ song.artist.name }}</td>
                     <td>{{ secondsToTime(song.duration) }}</td>
+                    <td><playlist-button :currentPlaylist="playlist" :song="song" class="float-right"></playlist-button></td>
                 </tr>
             </tbody>
         </table>
@@ -35,6 +37,7 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
+import PlaylistButton from "@/Components/PlaylistButtons";
 import { helperMixin } from "@/Mixins/HelperMixin.js";
 export default {
     mixins: [helperMixin],
@@ -43,6 +46,7 @@ export default {
     },
     components: {
         AppLayout,
+        PlaylistButton,
     },
 };
 </script>

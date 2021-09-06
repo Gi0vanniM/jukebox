@@ -6,5 +6,5 @@ interface PlaylistInterface
 {
     public function addSong($id);
 
-    public function removeSong($id);
+    public function removeSong($id, $relationId);
 }
