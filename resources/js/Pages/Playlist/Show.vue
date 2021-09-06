@@ -4,7 +4,7 @@
             <small class="font-weight-bold">PLAYLIST</small>
             <h2 class="h2 font-weight-bold">{{ playlist.name }}</h2>
             <!-- TODO:: show total amount of time of playlist -->
-            <small><b>{{ playlist.user.name }}</b> • {{ playlist.songs.length }} songs</small>
+            <small><b>{{ playlist.user.name }}</b> • {{ playlist.songs.length }} songs, {{totalTime}}</small>
         </template>
 
         <table class="table table-hover border">
@@ -48,6 +48,16 @@ export default {
         AppLayout,
         PlaylistButton,
     },
+    data() {
+        return {
+            //
+        }
+    },
+    computed: {
+        totalTime: function() {
+            return this.secondsToTime(this.playlist.songs.reduce((a, b) => a + b.duration, 0));
+        }
+    }
 };
 </script>
 
