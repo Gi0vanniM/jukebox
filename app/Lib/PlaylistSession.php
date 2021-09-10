@@ -8,7 +8,7 @@ use stdClass;
 
 class PlaylistSession implements PlaylistInterface
 {
-    public $playlist;
+    private $playlist;
 
     function __construct()
     {
@@ -22,6 +22,11 @@ class PlaylistSession implements PlaylistInterface
             $this->playlist->songs = [];
             session(['playlist' => $this->playlist]);
         }
+    }
+
+    public function getPlaylist()
+    {
+        return $this->playlist;
     }
 
     public function addSong($id, $forced = false)
