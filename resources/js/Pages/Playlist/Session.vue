@@ -1,5 +1,11 @@
 <template>
-    
+    <app-layout>
+        <template #header>
+            <small class="font-weight-bold">PLAYLIST</small>
+            <h2 class="h2 font-weight-bold">Your session playlist</h2>
+            <small><b>{{ playlist.user.name }}</b> • {{ playlist.songs.length }} songs, {{totalTime}}</small>
+        </template>
+    </app-layout>
 </template>
 
 <script>
