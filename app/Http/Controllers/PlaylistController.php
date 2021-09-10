@@ -58,6 +58,15 @@ class PlaylistController extends Controller
         ]);
     }
 
+    public function session(Request $request)
+    {
+        $playlistSession = new PlaylistSession();
+        return Inertia::render('Playlist/Session', [
+            'playlist' => $playlistSession->playlist,
+            'playlists' => Playlist::where('user_id', Auth::id())->get(),
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
