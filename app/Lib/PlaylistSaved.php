@@ -8,11 +8,16 @@ use App\Models\Song;
 
 class PlaylistSaved implements PlaylistInterface
 {
-    public $playlist;
+    private $playlist;
 
     function __construct($playlistId)
     {
         $this->playlist = Playlist::find($playlistId);
+    }
+
+    public function getPlaylist()
+    {
+        return $this->playlist;
     }
 
     /**

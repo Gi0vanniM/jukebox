@@ -60,5 +60,17 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::prefix('api')->group(function () {
         Route::post('addSongToPlaylist', [PlaylistController::class, 'add'])->name('addSongToPlaylist');
         Route::post('removeSongFromPlaylist', [PlaylistController::class, 'remove'])->name('addSongToPlaylist');
+
+
+        /**
+         * /api/session routes for debugging purposes only!
+         */
+        Route::get('session', function () {
+            dd(session());
+        });
+        Route::get('session/{value}', function ($value) {
+            dd(session($value));
+        });
+        #####################################################
     });
 });

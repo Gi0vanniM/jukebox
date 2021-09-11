@@ -52,8 +52,18 @@ class PlaylistController extends Controller
      */
     public function show(Playlist $playlist)
     {
+        $playlistSaved = new PlaylistSaved($playlist->id);
         return Inertia::render('Playlist/Show', [
-            'playlist' => $playlist,
+            'playlist' => $playlistSaved->getPlaylist(),
+            'playlists' => Playlist::where('user_id', Auth::id())->get(),
+        ]);
+    }
+
+    public function session(Request $request)
+    {
+        $playlistSession = new PlaylistSession();
+        return Inertia::render('Playlist/Session', [
+            'playlist' => $playlistSession->getPlaylist(),
             'playlists' => Playlist::where('user_id', Auth::id())->get(),
         ]);
     }
