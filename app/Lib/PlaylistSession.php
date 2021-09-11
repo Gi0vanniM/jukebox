@@ -19,7 +19,7 @@ class PlaylistSession implements PlaylistInterface
             $this->playlist = new stdClass;
             $this->playlist->name = 'Session playlist';
             $this->playlist->user = auth()->user();
-            $this->playlist->songs = [];
+            $this->playlist->songs = array();
             session(['playlist' => $this->playlist]);
         }
     }
@@ -50,6 +50,18 @@ class PlaylistSession implements PlaylistInterface
             return ['songExists' => true];
         }
 
+        // get the latest relationId
+        $relationId = 0;
+        foreach ($this->playlist->songs as $pSong) {
+            if ($pSong->relationId > $relationId) {
+                $relationId = $pSong->relationId;
+            }
+        }
+        // make new relation id
+        $relationId++;
+
+        $song->relationId = $relationId;
+
         // insert/save the song in the relation table
         if ($status = ($this->playlist->songs[] = $song)) {
             // update session
@@ -62,6 +74,29 @@ class PlaylistSession implements PlaylistInterface
 
     public function removeSong($id, $relationId)
     {
-        //
+        // check if song is in playlist
+        $songExists = false;
+        foreach ($this->playlist->songs as $pSong) {
+            if ($pSong->id == $id) {
+                $songExists = true;
+                break;
+            }
+        }
+
+        if (!$songExists) {
+            return ['songNotInPlaylist' => true];
+        }
+
+        // find the song by relation id
+        $songIndex = array_search($relationId, array_column($this->playlist->songs, 'relationId'));
+
+        // remove song from playlist
+        if ($status = array_splice($this->playlist->songs, $songIndex, 1)) {
+            session(['playlist' => $this->playlist]);
+            return ['removedSong' => true];
+        }
+
+
+        return $status;
     }
 }
