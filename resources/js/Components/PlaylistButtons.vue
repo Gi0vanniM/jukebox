@@ -44,7 +44,13 @@
 
         <button
             v-if="currentPlaylist"
-            v-on:click="removeFromPlaylist(currentPlaylist.id, song.id, song.pivot.id)"
+            v-on:click="
+                removeFromPlaylist(
+                    currentPlaylist.id,
+                    song.id,
+                    relationId ?? song.pivot.id
+                )
+            "
             type="button"
             class="btn btn-danger btn-small px-1"
         >
@@ -93,7 +99,7 @@
         <already-added-alert
             :songId="song.id"
             :playlistId="null"
-            :playlistName="null"
+            :playlistName="playlist.name"
         />
         <added-alert v-if="!exists('addedToPlaylist')" />
     </div>
@@ -111,6 +117,9 @@ export default {
             type: Boolean,
         },
         song: Object,
+        relationId: {
+            default: null,
+        },
         currentPlaylist: {
             default: null,
             type: Object,
@@ -123,7 +132,7 @@ export default {
     methods: {
         addToPlaylist: function (playlistId = null, songId, forced = false) {
             const data = {
-                playlistId: playlistId || nulcurrentPlaylistl,
+                playlistId: playlistId || null,
                 songId: songId,
                 forced: forced,
             };
@@ -144,22 +153,23 @@ export default {
                 playlistId: playlistId,
                 songId: songId,
                 relationId: relationId,
-            }
+            };
             axios.post("/api/removeSongFromPlaylist", data).then((response) => {
                 console.log(response.data); //##
                 if (response.data.removedSong == true) {
-                    let el = document.getElementById('playlist_song-' + relationId);
+                    let el = document.getElementById("playlist_song-" + relationId);
                     el.remove();
-                    this.$swal('Removed song from playlist');
-                    this.$parent.songs.forEach(song => {
-                        if (song.pivot.id == relationId) {
-                            // TODO:: remove song from parent playlist songs
-                            
-                        }
-                    });
+                    this.$swal("Removed song from playlist");
+
+                    // this.currentPlaylist.songs.forEach((song, index) => {
+                    //     if (this.relationId !== null && index === relationId) {
+                    //         delete this.currentPlaylist.songs[index];
+                    //         return;
+                    //     }
+                    // });
                 }
-            })
-        }
+            });
+        },
     },
 };
 </script>
