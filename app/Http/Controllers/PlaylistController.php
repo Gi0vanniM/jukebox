@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lib\PlaylistSaved;
 use App\Lib\PlaylistSession;
 use App\Models\Playlist;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -41,7 +42,40 @@ class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!isset($request->name)) {
+            return response()->json(
+                ['error' => 'no name given']
+            );
+        }
+
+        if (Playlist::where('name', '=', $request->name)->exists()) {
+            return response()->json(
+                [
+                    'name' => $request->name,
+                    'alreadyExists' => true
+                ]
+            );
+        }
+
+        $playlist = new Playlist();
+        $playlist->name = $request->name;
+
+        $user = User::find(Auth::id());
+        if (!$user->playlists()->save($playlist)) {
+            return response()->json(
+                [
+                    'error' => 'something went wrong',
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'name' => $request->name,
+                'playlist' => $playlist,
+                'playlistCreated' => true,
+            ]
+        );
     }
 
     /**
@@ -99,9 +133,28 @@ class PlaylistController extends Controller
      */
     public function destroy(Playlist $playlist)
     {
-        //
+        if (!$playlist->delete()) {
+            return response()->json(
+                [
+                    'playlist' => $playlist,
+                    'error' => 'something went wrong',
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'playlistDeleted' => true,
+            ]
+        );
     }
 
+    /**
+     * add a song to playlist
+     *
+     * @param Request $request
+     * @return json
+     */
     public function add(Request $request)
     {
         // playlistId
@@ -125,6 +178,12 @@ class PlaylistController extends Controller
         );
     }
 
+    /**
+     * remove a song from playlist
+     *
+     * @param Request $request
+     * @return json
+     */
     public function remove(Request $request)
     {
         // playlistId
