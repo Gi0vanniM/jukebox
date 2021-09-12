@@ -7,7 +7,7 @@
             <div class="col-12 col-sm-6 col-md-4 pt-2 px-1">
                 <button
                     type="button"
-                    v-on:click="createPlaylistMenu()"
+                    v-on:click="createPlaylist()"
                     class="card card-link h-100 w-100 bg-dark pb-1"
                 >
                     <div class="card-body">
@@ -20,18 +20,39 @@
                 class="col-12 col-sm-6 col-md-4 pt-2 px-1"
                 v-for="playlist in playlists"
                 :key="playlist.id"
+                :id="'playlist_' + playlist.id"
             >
-                <inertia-link
+                <div
                     :href="route('playlist.show', [playlist.id, playlist.name])"
                     class="card card-link h-100 bg-dark pb-1"
                 >
-                    <div class="card-body">
+                    <button
+                        v-on:click="deletePlaylist(playlist)"
+                        type="button"
+                        class="btn position-absolute"
+                        style="right: 0rem"
+                    >
+                        <i
+                            class="fas fa-trash-alt"
+                            style="
+                                font-size: 15px;
+                                color: red;
+                                text-decoration: none;
+                            "
+                        ></i>
+                    </button>
+                    <inertia-link
+                        :href="
+                            route('playlist.show', [playlist.id, playlist.name])
+                        "
+                        class="card-body"
+                    >
                         <h4 class="card-title">{{ playlist.name }}</h4>
                         <p class="card-text">
                             {{ recentSongs(playlist) || "..." }}
                         </p>
-                    </div>
-                </inertia-link>
+                    </inertia-link>
+                </div>
             </div>
         </div>
     </app-layout>
@@ -55,8 +76,7 @@ export default {
                 .map((x) => x.name)
                 .join(", ");
         },
-        createPlaylistMenu() {
-            // throw new Error('niggas in paris');
+        createPlaylist() {
             this.$swal
                 .fire({
                     title: "Creating playlist",
@@ -85,7 +105,7 @@ export default {
                     allowOutsideClick: () => !this.$swal.isLoading(),
                 })
                 .then((result) => {
-                    if (result.value.playlistCreated) {
+                    if (result.value && result.value.playlistCreated) {
                         this.$swal.fire({
                             title: `Created playlist "${result.value.name}"`,
                         });
@@ -97,6 +117,37 @@ export default {
                         };
                         console.log(this.playlists);
                         this.playlists.push(newPlaylist);
+                    }
+                });
+        },
+        deletePlaylist(playlist) {
+            this.$swal
+                .fire({
+                    title: `Delete "${playlist.name}" playlist?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: "Delete",
+                    showLoaderOnConfirm: true,
+                    preConfirm: () => {
+                        return axios
+                            .post("/api/deletePlaylist/" + playlist.id)
+                            .then((response) => {
+                                console.log(response);
+                                if (response.data.error) {
+                                    this.$swal.showValidationMessage(
+                                        `Request failed: ${response.data.error}`
+                                    );
+                                }
+                                return response.data;
+                            });
+                    },
+                })
+                .then((result) => {
+                    if (result.value && result.value.playlistDeleted) {
+                        this.$swal.fire("Deleted!", "success");
+                        let el = document.getElementById("playlist_" + playlist.id);
+                        el.remove();
                     }
                 });
         },

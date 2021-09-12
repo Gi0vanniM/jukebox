@@ -133,7 +133,20 @@ class PlaylistController extends Controller
      */
     public function destroy(Playlist $playlist)
     {
-        //
+        if (!$playlist->delete()) {
+            return response()->json(
+                [
+                    'playlist' => $playlist,
+                    'error' => 'something went wrong',
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'playlistDeleted' => true,
+            ]
+        );
     }
 
     /**
