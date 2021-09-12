@@ -12,13 +12,15 @@
                 >
                     <div class="card-body">
                         <h4 class="card-title"><i class="fas fa-plus"></i></h4>
-                        <p class="card-text">
-                            Create a playlist
-                        </p>
+                        <p class="card-text">Create a playlist</p>
                     </div>
                 </button>
             </div>
-            <div class="col-12 col-sm-6 col-md-4 pt-2 px-1" v-for="playlist in playlists" :key="playlist.id">
+            <div
+                class="col-12 col-sm-6 col-md-4 pt-2 px-1"
+                v-for="playlist in playlists"
+                :key="playlist.id"
+            >
                 <inertia-link
                     :href="route('playlist.show', [playlist.id, playlist.name])"
                     class="card card-link h-100 bg-dark pb-1"
@@ -26,7 +28,7 @@
                     <div class="card-body">
                         <h4 class="card-title">{{ playlist.name }}</h4>
                         <p class="card-text">
-                            {{ recentSongs(playlist) || '...'}}
+                            {{ recentSongs(playlist) || "..." }}
                         </p>
                     </div>
                 </inertia-link>
@@ -46,7 +48,7 @@ export default {
         AppLayout,
     },
     methods: {
-        recentSongs (playlist) {
+        recentSongs(playlist) {
             let songs = JSON.parse(JSON.stringify(playlist.songs));
             return songs
                 .splice(0, 3)
@@ -54,7 +56,49 @@ export default {
                 .join(", ");
         },
         createPlaylistMenu() {
-            
+            // throw new Error('niggas in paris');
+            this.$swal
+                .fire({
+                    title: "Creating playlist",
+                    input: "text",
+                    inputPlaceholder: "enter a name for your new playlist",
+                    showCancelButton: true,
+                    confirmButtonText: "Create",
+                    showLoaderOnConfirm: true,
+                    preConfirm: (name) => {
+                        return axios
+                            .post("/api/createPlaylist", { name: name })
+                            .then((response) => {
+                                console.log(response);
+                                if (response.data.error) {
+                                    this.$swal.showValidationMessage(
+                                        `Request failed: ${response.data.error}`
+                                    );
+                                } else if (response.data.alreadyExists) {
+                                    this.$swal.showValidationMessage(
+                                        `A playlist by the name of "${response.data.name}" already exists!`
+                                    );
+                                }
+                                return response.data;
+                            });
+                    },
+                    allowOutsideClick: () => !this.$swal.isLoading(),
+                })
+                .then((result) => {
+                    if (result.value.playlistCreated) {
+                        this.$swal.fire({
+                            title: `Created playlist "${result.value.name}"`,
+                        });
+                        let newPlaylist = {
+                            id: result.value.playlist.id,
+                            name: result.value.playlist.name,
+                            user_id: result.value.playlist.user_id,
+                            songs: [],
+                        };
+                        console.log(this.playlists);
+                        this.playlists.push(newPlaylist);
+                    }
+                });
         },
     },
 };
