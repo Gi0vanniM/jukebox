@@ -102,6 +102,12 @@ class PlaylistController extends Controller
         //
     }
 
+    /**
+     * add a song to playlist
+     *
+     * @param Request $request
+     * @return json
+     */
     public function add(Request $request)
     {
         // playlistId
@@ -125,6 +131,12 @@ class PlaylistController extends Controller
         );
     }
 
+    /**
+     * remove a song from playlist
+     *
+     * @param Request $request
+     * @return json
+     */
     public function remove(Request $request)
     {
         // playlistId
