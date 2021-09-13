@@ -16,12 +16,17 @@ class PlaylistSession implements PlaylistInterface
             $this->playlist = session('playlist');
         } else {
             // set session data
-            $this->playlist = new stdClass;
-            $this->playlist->name = 'Session playlist';
-            $this->playlist->user = auth()->user();
-            $this->playlist->songs = array();
-            session(['playlist' => $this->playlist]);
+            $this->getPlaylist();
         }
+    }
+
+    public function resetSession()
+    {
+        $this->playlist = new stdClass;
+        $this->playlist->name = 'Session playlist';
+        $this->playlist->user = auth()->user();
+        $this->playlist->songs = array();
+        session(['playlist' => $this->playlist]);
     }
 
     public function getPlaylist()
