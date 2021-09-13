@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     // api routes
     Route::prefix('api')->group(function () {
         Route::post('createPlaylist', [PlaylistController::class, 'store'])->name('createPlaylist');
-        Route::post('updatePlaylist', [PlaylistController::class, 'update'])->name('updatePlaylist');
+        Route::post('updatePlaylist/{playlist}', [PlaylistController::class, 'update'])->name('updatePlaylist');
         Route::post('deletePlaylist/{playlist}', [PlaylistController::class, 'destroy'])->name('deletePlaylist');
 
         Route::post('addSongToPlaylist', [PlaylistController::class, 'add'])->name('addSongToPlaylist');
