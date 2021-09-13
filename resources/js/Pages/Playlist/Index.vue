@@ -107,6 +107,9 @@ export default {
                 .then((result) => {
                     if (result.value && result.value.playlistCreated) {
                         this.$swal.fire({
+                            toast: true,
+                            timer: 2000,
+                            timerProgressBar: true,
                             title: `Created playlist "${result.value.name}"`,
                         });
                         let newPlaylist = {
@@ -145,8 +148,16 @@ export default {
                 })
                 .then((result) => {
                     if (result.value && result.value.playlistDeleted) {
-                        this.$swal.fire("Deleted!", "success");
-                        let el = document.getElementById("playlist_" + playlist.id);
+                        this.$swal.fire({
+                            toast: true,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            title: "Deleted!",
+                            icon: "success",
+                        });
+                        let el = document.getElementById(
+                            "playlist_" + playlist.id
+                        );
                         el.remove();
                     }
                 });

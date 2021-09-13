@@ -98,38 +98,42 @@ export default {
     },
     methods: {
         updatePlaylistName(playlist) {
-            this.$swal.fire({
-                title: `Edit "${playlist.name}" playlist name?`,
-                icon: "question",
-                input: "text",
-                showCancelButton: true,
-                confirmButtonColor: "#00FF00",
-                confirmButtonText: "Edit name",
-                showLoaderOnConfirm: true,
-                preConfirm: (name) => {
-                    return axios
-                        .post("/api/updatePlaylist/" + playlist.id, {
-                            newName: name,
-                        })
-                        .then((response) => {
-                            console.log(response);
-                            if (response.data.error) {
-                                this.$swal.showValidationMessage(
-                                    `Request failed: ${response.data.error}`
-                                );
-                            } else if (response.data.alreadyExists) {
-                                this.$swal.showValidationMessage(
-                                    `A playlist by the name of "${response.data.name}" already exists!`
-                                );
-                            }
-                            return response.data;
-                        });
-                },
-                allowOutsideClick: () => !this.$swal.isLoading(),
-            })
-            .then((result) => {
+            this.$swal
+                .fire({
+                    title: `Edit "${playlist.name}" playlist name?`,
+                    icon: "question",
+                    input: "text",
+                    showCancelButton: true,
+                    confirmButtonColor: "#00FF00",
+                    confirmButtonText: "Edit name",
+                    showLoaderOnConfirm: true,
+                    preConfirm: (name) => {
+                        return axios
+                            .post("/api/updatePlaylist/" + playlist.id, {
+                                newName: name,
+                            })
+                            .then((response) => {
+                                console.log(response);
+                                if (response.data.error) {
+                                    this.$swal.showValidationMessage(
+                                        `Request failed: ${response.data.error}`
+                                    );
+                                } else if (response.data.alreadyExists) {
+                                    this.$swal.showValidationMessage(
+                                        `A playlist by the name of "${response.data.name}" already exists!`
+                                    );
+                                }
+                                return response.data;
+                            });
+                    },
+                    allowOutsideClick: () => !this.$swal.isLoading(),
+                })
+                .then((result) => {
                     if (result.value && result.value.playlistUpdated) {
                         this.$swal.fire({
+                            toast: true,
+                            timer: 2000,
+                            timerProgressBar: true,
                             title: `Playlist renamed to "${result.value.name}"`,
                         });
                         this.playlist.name = result.value.name;
@@ -161,7 +165,13 @@ export default {
                 })
                 .then((result) => {
                     if (result.value && result.value.playlistDeleted) {
-                        this.$swal.fire("Deleted!", "success");
+                        this.$swal.fire({
+                            toast: true,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            title: "Deleted!",
+                            icon: "success",
+                        });
                         return this.$inertia.visit("/playlists");
                     }
                 });
