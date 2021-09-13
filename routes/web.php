@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::post('addSongToPlaylist', [PlaylistController::class, 'add'])->name('addSongToPlaylist');
         Route::post('removeSongFromPlaylist', [PlaylistController::class, 'remove'])->name('addSongToPlaylist');
 
+        Route::post('saveSession', [PlaylistController::class, 'saveSession'])->name('saveSession');
 
         /**
          * /api/session routes for debugging purposes only!

@@ -190,6 +190,78 @@ class PlaylistController extends Controller
     }
 
     /**
+     * saveSession
+     *
+     * @param Request $request
+     * @return json
+     */
+    public function saveSession(Request $request)
+    {
+        // check if name is given
+        if (!isset($request->name)) {
+            return response()->json(
+                ['error' => 'no name given']
+            );
+        }
+
+        // check if name already exists
+        if (Playlist::where('name', '=', $request->name)->exists()) {
+            return response()->json(
+                [
+                    'name' => $request->name,
+                    'alreadyExists' => true
+                ]
+            );
+        }
+
+        // get the session playlist
+        $playlistSession = new PlaylistSession();
+        // create a playlist model
+        $savePlaylist = new Playlist();
+        // set the name to it
+        $savePlaylist->name = $request->name;
+
+        // get the user
+        $user = User::find(Auth::id());
+        // save the new playlist
+        if (!$user->playlists()->save($savePlaylist)) {
+            // if something went wrong send error back
+            return response()->json(
+                [
+                    'error' => 'could not save playlist',
+                ]
+            );
+        }
+
+        // create new PlaylistSaved instance
+        $playlist = new PlaylistSaved($savePlaylist->id);
+
+        // apply songs to playlist
+        foreach ($playlistSession->getPlaylist()->songs as $song) {
+            if (!$playlist->addSong($song->id, true)) {
+                // if something went wrong send back error message
+                return response()->json(
+                    [
+                        'error' => 'could not save a song',
+                    ]
+                );
+            }
+        }
+
+        // reset the session
+        $playlistSession->resetSession();
+
+        // respond with name, id of new playlist
+        return response()->json(
+            [
+                'name' => $playlist->getPlaylist()->name,
+                'id' => $playlist->getPlaylist()->id,
+                'sessionSaved' => true,
+            ]
+        );
+    }
+
+    /**
      * add a song to playlist
      *
      * @param Request $request
