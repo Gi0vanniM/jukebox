@@ -99,7 +99,7 @@
         <already-added-alert
             :songId="song.id"
             :playlistId="null"
-            :playlistName="playlist.name"
+            :playlistName="'Session playlist'"
         />
         <added-alert v-if="!exists('addedToPlaylist')" />
     </div>
