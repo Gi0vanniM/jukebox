@@ -38,6 +38,7 @@ export default {
     },
     props: {
         song: Object,
+        playlists: Object,
     },
 };
 </script>
