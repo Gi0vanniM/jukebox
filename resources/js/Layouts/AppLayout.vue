@@ -9,7 +9,7 @@
                 <!-- Logo -->
                 <inertia-link
                     class="navbar-brand mr-4"
-                    :href="route('dashboard')"
+                    :href="route('song.index')"
                 >
                     <application-mark width="36" />
                 </inertia-link>
@@ -31,12 +31,12 @@
                 >
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <jet-nav-link
+                        <!-- <jet-nav-link
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
                             Dashboard
-                        </jet-nav-link>
+                        </jet-nav-link> -->
                         <jet-nav-link
                             :href="route('song.index')"
                             :active="route().current('song.index')"
