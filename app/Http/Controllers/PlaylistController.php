@@ -122,7 +122,47 @@ class PlaylistController extends Controller
      */
     public function update(Request $request, Playlist $playlist)
     {
-        //
+        if (!isset($request->newName)) {
+            return response()->json(
+                ['error' => 'no name given']
+            );
+        }
+
+        if (Playlist::where('name', '=', $request->newName)->exists()) {
+            return response()->json(
+                [
+                    'name' => $request->newName,
+                    'alreadyExists' => true
+                ]
+            );
+        }
+
+        $user = User::find(Auth::id());
+        if ($playlist->user_id != $user->id && !$user->hasRole('Administrator')) {
+            return response()->json(
+                [
+                    'error' => 'you cannot change other`s playlist',
+                ]
+            );
+        }
+
+        $playlist->name = $request->newName;
+
+        if (!$playlist->save()) {
+            return response()->json(
+                [
+                    'error' => 'something went wrong',
+                ]
+            );
+        }
+
+        return response()->json(
+            [
+                'name' => $playlist->name,
+                'playlist' => $playlist,
+                'playlistUpdated' => true,
+            ]
+        );
     }
 
     /**
