@@ -23,7 +23,7 @@ $ php artisan migrate --seed
 
 Build the application
 ```
-npm run prod
+$ npm run prod
 ```
 
 Make sure the application is run via a vhost.
