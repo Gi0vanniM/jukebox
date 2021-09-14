@@ -16,7 +16,7 @@ class PlaylistSession implements PlaylistInterface
             $this->playlist = session('playlist');
         } else {
             // set session data
-            $this->getPlaylist();
+            $this->resetSession();
         }
     }
 
