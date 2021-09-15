@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lib\Helper;
 use App\Lib\PlaylistSaved;
 use App\Lib\PlaylistSession;
 use App\Models\Playlist;
@@ -42,6 +43,7 @@ class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
+        $request->name = str_replace(["/", "\\"], "", Helper::sanitize($request->name));
         if (!isset($request->name)) {
             return response()->json(
                 ['error' => 'no name given']
@@ -122,6 +124,7 @@ class PlaylistController extends Controller
      */
     public function update(Request $request, Playlist $playlist)
     {
+        $request->newName = str_replace(["/", "\\"], "", Helper::sanitize($request->newName));
         if (!isset($request->newName)) {
             return response()->json(
                 ['error' => 'no name given']
@@ -173,6 +176,15 @@ class PlaylistController extends Controller
      */
     public function destroy(Playlist $playlist)
     {
+        $user = User::find(Auth::id());
+        if ($playlist->user_id != $user->id && !$user->hasRole('Administrator')) {
+            return response()->json(
+                [
+                    'error' => 'you cannot change other`s playlist',
+                ]
+            );
+        }
+        
         if (!$playlist->delete()) {
             return response()->json(
                 [
@@ -197,6 +209,8 @@ class PlaylistController extends Controller
      */
     public function saveSession(Request $request)
     {
+        // sanitize input
+        $request->name = str_replace(["/", "\\"], "", Helper::sanitize($request->name));
         // check if name is given
         if (!isset($request->name)) {
             return response()->json(
@@ -269,8 +283,10 @@ class PlaylistController extends Controller
      */
     public function add(Request $request)
     {
-        // playlistId
-        // songId
+        // sanitize input
+        $request->songId = str_replace(["/", "\\"], "", Helper::sanitize($request->songId));
+        $request->playlistId = str_replace(["/", "\\"], "", Helper::sanitize($request->playlistId));
+        $request->forced = str_replace(["/", "\\"], "", Helper::sanitize($request->forced));
 
         $playlist = null;
         $response = null;
@@ -298,8 +314,10 @@ class PlaylistController extends Controller
      */
     public function remove(Request $request)
     {
-        // playlistId
-        // songId
+        // sanitize input
+        $request->songId = str_replace(["/", "\\"], "", Helper::sanitize($request->songId));
+        $request->playlistId = str_replace(["/", "\\"], "", Helper::sanitize($request->playlistId));
+        $request->relationId = str_replace(["/", "\\"], "", Helper::sanitize($request->relationId));
 
         $playlist = null;
         $response = null;
