@@ -37,7 +37,9 @@ class PlaylistSession implements PlaylistInterface
     public function addSong($id, $forced = false)
     {
         // get the song by id
-        $song = Song::find($id);
+        // $song = Song::find($id);
+        $song = new stdClass();
+        $song->id = $id;
 
         // check if song is already in playlist
         $songExists = false;
