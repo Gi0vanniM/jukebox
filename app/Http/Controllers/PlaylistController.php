@@ -104,7 +104,7 @@ class PlaylistController extends Controller
         $playlistSession = (new PlaylistSession())->getPlaylist();
 
         $playlist->name = $playlistSession->name;
-        $playlist->user = $playlistSession->user;
+        $playlist->user = auth()->user();
 
         // load through songs to get
         if (!empty($playlistSession->songs)) {
