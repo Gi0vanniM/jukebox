@@ -3,7 +3,6 @@
 namespace App\Lib;
 
 use App\Lib\Interfaces\PlaylistInterface;
-use App\Models\Song;
 use stdClass;
 
 class PlaylistSession implements PlaylistInterface
