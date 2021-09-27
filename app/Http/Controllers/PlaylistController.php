@@ -6,10 +6,13 @@ use App\Lib\Helper;
 use App\Lib\PlaylistSaved;
 use App\Lib\PlaylistSession;
 use App\Models\Playlist;
+use App\Models\Song;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use stdClass;
 
 class PlaylistController extends Controller
 {
@@ -97,9 +100,26 @@ class PlaylistController extends Controller
 
     public function session(Request $request)
     {
-        $playlistSession = new PlaylistSession();
+        $playlist = new stdClass;
+        $playlistSession = (new PlaylistSession())->getPlaylist();
+
+        $playlist->name = $playlistSession->name;
+        $playlist->user = $playlistSession->user;
+
+        // load through songs to get
+        if (!empty($playlistSession->songs)) {
+            foreach ($playlistSession->songs as $song) {
+                $leSong = Song::find($song->id);
+                $leSong->relationId = $song->relationId;
+                $playlist->songs[] = $leSong;
+            }
+        } else {
+            // if session playlist has not songs, make sure we send atleast an empty array
+            $playlist->songs = [];
+        }
+
         return Inertia::render('Playlist/Session', [
-            'playlist' => $playlistSession->getPlaylist(),
+            'playlist' => $playlist,
             'playlists' => Playlist::where('user_id', Auth::id())->get(),
         ]);
     }
