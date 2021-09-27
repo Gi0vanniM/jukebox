@@ -24,7 +24,6 @@ class PlaylistSession implements PlaylistInterface
     {
         $this->playlist = new stdClass;
         $this->playlist->name = 'Session playlist';
-        $this->playlist->user = auth()->user();
         $this->playlist->songs = array();
         session(['playlist' => $this->playlist]);
     }
